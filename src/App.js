@@ -1,4 +1,6 @@
-import Axios from "./axios";
+// require("dotenv").config();
+// import Axios from "./axios";
+import axios from "axios";
 import { useContext, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
@@ -12,9 +14,10 @@ import Login from "./Pages/SignIn/SignIn";
 import NewQuestion from "./Pages/Question/NewQuestion";
 import Answer from "./Pages/Answer/Answer";
 import NotFound from "./Pages/NotFound/NotFound";
+
 function App() {
   const [userData, setUserData] = useContext(UserContext);
-  const axios = Axios();
+  // const axios = Axios();
 
   const checkLoggedIn = async () => {
     //check if token already exists in localStorage
@@ -25,9 +28,12 @@ function App() {
       token = "";
     } else {
       //if token exists in localStorage then use auth to verify token and get user info
-      const userRes = await axios.get("/api/users", {
-        headers: { "x-auth-token": token },
-      });
+      const userRes = await axios.get(
+        `${process.env.REACT_APP_base_url}/api/users`,
+        {
+          headers: { "x-auth-token": token },
+        }
+      );
 
       //set the global state with user info
       setUserData({

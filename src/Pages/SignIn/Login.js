@@ -1,11 +1,13 @@
+// require("dotenv").config();
 import React, { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
-import Axios from "../../axios";
+// import Axios from "../../axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login({ showSignUp, showForgot }) {
   const [userData, setUserData] = useContext(UserContext);
-  const axios = Axios();
+  // const axios = Axios();
   const navigate = useNavigate();
   const [form, setForm] = useState({});
   const [showPassword, setShowPassword] = useState(false);
@@ -20,10 +22,13 @@ function Login({ showSignUp, showForgot }) {
     e.preventDefault();
     try {
       //sending user data to database to be logged in
-      const loginRes = await axios.post("/api/users/login", {
-        email: form.email,
-        password: form.password,
-      });
+      const loginRes = await axios.post(
+        `${process.env.REACT_APP_base_url}/api/users/login`,
+        {
+          email: form.email,
+          password: form.password,
+        }
+      );
 
       //update global state with response from backend(user-info)
       setUserData({

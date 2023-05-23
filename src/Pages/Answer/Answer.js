@@ -1,9 +1,11 @@
+// require("dotenv").config();
 import React, { useState, useContext, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
-import Axios from "../../axios";
+// import Axios from "../../axios";
 import AnswerDetail from "./AnswerDetail";
 import "./Answer.css";
+import axios from "axios";
 
 function Answer() {
   const { id } = useParams();
@@ -11,7 +13,7 @@ function Answer() {
   const [question, setQuestion] = useState({});
   const [userData] = useContext(UserContext);
   const [answers, setAnswers] = useState([]);
-  const axios = Axios();
+  // const axios = Axios();
 
   const [form, setForm] = useState({});
   const handleChange = (e) => {
@@ -22,7 +24,7 @@ function Answer() {
     try {
       //sending user data to database to be logged in
       const postRes = await axios.post(
-        "/api/answer/newanswer",
+        "http://localhost:4000/api/answer/newanswer",
         {
           answer: form.new_answer,
           question_id: id,
@@ -53,7 +55,7 @@ function Answer() {
 
   async function loadQuestion() {
     const response = await axios.get(
-      `/api/question/getquestionbyid?question_id=${id}`,
+      `${process.env.REACT_APP_base_url}/api/question/getquestionbyid?question_id=${id}`,
       userData.config
     );
     setQuestion(response.data?.data);
@@ -61,7 +63,7 @@ function Answer() {
 
   async function loadAnswers() {
     const response = await axios.get(
-      `/api/answer/getanswer?question_id=${id}`,
+      `${process.env.REACT_APP_base_url}/api/answer/getanswer?question_id=${id}`,
       userData.config
     );
     setAnswers(response.data?.data);

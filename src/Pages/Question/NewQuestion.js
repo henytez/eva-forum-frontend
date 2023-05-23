@@ -1,11 +1,14 @@
+// require("dotenv").config();
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
-import Axios from "../../axios";
+// import Axios from "../../axios";
 import "./question.css";
+import axios from "axios";
+
 const NewQuestion = () => {
   const [userData] = useContext(UserContext);
-  const axios = Axios();
+  // const axios = Axios();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({});
@@ -19,7 +22,7 @@ const NewQuestion = () => {
     try {
       //sending user data to database to be logged in
       await axios.post(
-        "/api/question/newquestion",
+        `${process.env.REACT_APP_base_url}/api/question/newquestion`,
         {
           title: form.title,
           question: form.question,

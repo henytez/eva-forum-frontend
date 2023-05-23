@@ -1,15 +1,17 @@
+// require("dotenv").config();
+import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import QuestionDetail from "../Question/QuestionDetail";
-import Axios from "../../axios";
-import "./home.css";
+// import Axios from "../../axios";
 
+import "./home.css";
 const Home = () => {
   const [userData] = useContext(UserContext);
   const [questions, setQuestions] = useState([]);
   const navigate = useNavigate();
-  const axios = Axios();
+  // const axios = Axios();
   const [search, setSearcher] = useState("");
   const [filterData, setFilterData] = useState([]);
 
@@ -23,7 +25,7 @@ const Home = () => {
 
   async function loadQuestions() {
     const response = await axios.get(
-      "/api/question/getquestions",
+      `${process.env.REACT_APP_base_url}/api/question/getquestions`,
       userData.config
     );
     setQuestions(response.data?.data);
