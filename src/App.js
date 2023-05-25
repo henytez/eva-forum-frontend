@@ -14,7 +14,6 @@ import Login from "./Pages/SignIn/SignIn";
 import NewQuestion from "./Pages/Question/NewQuestion";
 import Answer from "./Pages/Answer/Answer";
 import NotFound from "./Pages/NotFound/NotFound";
-
 function App() {
   const [userData, setUserData] = useContext(UserContext);
   // const axios = Axios();
