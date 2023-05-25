@@ -24,7 +24,7 @@ function Answer() {
     try {
       //sending user data to database to be logged in
       const postRes = await axios.post(
-        "http://localhost:4000/api/answer/newanswer",
+        `${process.env.REACT_APP_base_url}/api/answer/newanswer`,
         {
           answer: form.new_answer,
           question_id: id,
